@@ -1,15 +1,11 @@
 from .utils import *
-from common import get_dataloader
-import numpy as np
 from sklearn.linear_model import LogisticRegression
-from tqdm import tqdm
 
-# def get_features(model, name, preprocess, task, dataset_type):
-#     all_features = []
-#     all_labels = []
-#     dataloader = get_dataloader(name, preprocess, task, dataset_type)
+def train(train_features, train_labels):
+    model = LogisticRegression(random_state = 42, max_iter=2000, verbose=1)
+    model.fit(train_features, train_labels)
+    return model
 
-#     with torch.no_grad():
-#         for images, labels in tqdm(dataloader):
-#             features = model.encoder_image(images.to(device))
-#             tokens = 
+def get_pred(model, test_features):
+    predictions = model.predict(test_features)
+    return predictions

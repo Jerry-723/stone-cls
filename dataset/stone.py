@@ -1,5 +1,5 @@
 from .utils import *
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 
 
 class Stone(dataset):
@@ -12,7 +12,7 @@ class Stone(dataset):
             self.train_test_gen()
         else:
             if self.task == "general":
-                self.class_map = {"变质岩": "metamorphic rock", "沉积岩": "\ rock", "火成岩": "igneous rock"}
+                self.class_map = {"变质岩": "metamorphic rock", "沉积岩": "sedimentary rock", "火成岩": "igneous rock"}
                 with open(self.file_path, "r") as f:
                     for line in f:
                         file_path, label = line.strip().split("\t")
@@ -108,6 +108,11 @@ class Stone(dataset):
     def __getitem__(self, index):
         img_path = self.samples[index]
         label = self.labels[index]
-        image = Image.open(img_path).convert("RGB")
+        try:
+            image = Image.open(img_path).convert("RGB")
+        except UnidentifiedImageError:
+            print(f"Error opening image {img_path}. Skipping.")
+            return None, None
+
         image = self.img_preprocess(image)
         return image, label
