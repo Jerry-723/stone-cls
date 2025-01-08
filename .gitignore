@@ -3,4 +3,5 @@ dataset/__pycache__/
 dataset/assets
 algorithms/__pycache__/
 common/__pycache__/
+models/__pycache__/
 output/
