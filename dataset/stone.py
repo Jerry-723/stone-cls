@@ -13,6 +13,7 @@ class Stone(dataset):
         else:
             if self.task == "general":
                 self.class_map = {"变质岩": "metamorphic rock", "沉积岩": "sedimentary rock", "火成岩": "igneous rock"}
+                self.class_id_map = {"metamorphic rock": 0, "sedimentary rock": 1, "igneous rock": 2}
                 with open(self.file_path, "r") as f:
                     for line in f:
                         file_path, label = line.strip().split("\t")
